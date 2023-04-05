@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.example.unifiedhrs.databinding.ActivityMainBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.tvMedicalHistory.setOnClickListener {
             initUI()
-            showMedicalHistoryUI()
+            fetchMedicalHistoryFromFirebase()
         }
 
         mBinding.tvAccess.setOnClickListener {
@@ -146,6 +147,34 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    private fun fetchMedicalHistoryFromFirebase() {
+        Log.d(tag, "RRG fetchMedicalHistoryFromFirebase() called")
+        mDatabaseInstance.collection(USER_COLLECTION_MEDICAL_HISTORY)
+            .document(LOGGED_IN_PATIENT_ID)
+            .collection(USER_COLLECTION_RECORD)
+            .get()
+            .addOnSuccessListener { dataList ->
+                mBinding.progressCircular.visibility = View.GONE
+
+                for (document in dataList) {
+                    Log.d(tag, "RRG ${document.id} => ${document.data}")
+                }
+
+                showMedicalHistoryUI()
+                parseMedicalHistoryData(dataList)
+            }
+            .addOnFailureListener {
+                mBinding.progressCircular.visibility = View.GONE
+                Log.e(tag, "RRG addOnFailureListener() called for fetchMedicalHistoryFromFirebase() with exception = ${it.localizedMessage}")
+
+                Toast.makeText(
+                    this,
+                    "Something went wrong!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+    }
+
     private fun parsePatientInformationData(data: DocumentSnapshot) {
         mBinding.tvPatientName.text = data.get(IDENTIFIER_USER_NAME).toString()
         mBinding.tvInsuranceClaimPercentage.text = data.get(IDENTIFIER_INSURANCE_CLAIM_PERCENT).toString()
@@ -159,6 +188,10 @@ class MainActivity : AppCompatActivity() {
         mBinding.tvPatientMobileNumber.text = data.get(IDENTIFIER_PATIENT_CONTACT_NUMBER).toString()
         mBinding.tvPatientEmail.text = data.get(IDENTIFIER_PATIENT_EMAIL).toString()
         mBinding.tvPatientLocation.text = data.get(IDENTIFIER_PATIENT_LOCATION).toString()
+    }
+
+    private fun parseMedicalHistoryData(dataList: QuerySnapshot) {
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.unifiedhrs
 
 const val LOGGED_IN_PATIENT_ID = "1298-3465-9108-2005"
+const val USER_COLLECTION_RECORD = "records"
 
 // User Collection Related
 const val USER_COLLECTION_IDENTIFIER = "user"
@@ -16,6 +17,16 @@ const val IDENTIFIER_PATIENT_CONTACT_NUMBER = "patient_contact_number"
 const val IDENTIFIER_PATIENT_EMAIL = "patient_email"
 const val IDENTIFIER_PATIENT_LOCATION = "patient_location"
 
+// User Collection Related
+const val USER_COLLECTION_MEDICAL_HISTORY = "medical_history"
+
+const val IDENTIFIER_AMOUNT_BILLED = "amount_billed"
+const val IDENTIFIER_DATE_VISITED = "date_visited"
+const val IDENTIFIER_DOCTOR_ASSIGNED = "doctor_assigned"
+const val IDENTIFIER_DOCTOR_COMMENTS = "doctor_comments"
+const val IDENTIFIER_HOSPITAL_IMAGE_URL = "hospital_image_url"
+const val IDENTIFIER_HOSPITAL_LOCATION = "hospital_location"
+const val IDENTIFIER_HOSPITAL_NAME = "hospital_name"
 
 
 
