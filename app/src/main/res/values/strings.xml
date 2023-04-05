@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SampleProfileUi</string>
+    <string name="app_name">Unified HRS</string>
     <string name="job_success">Insurance Claimed</string>
     <string name="ui_ux_designer">UI/UX Designer</string>
     <string name="my_desc">I have a ligament tear in my left knee. \nOccationally have low Blood Pressure.</string>
@@ -7,7 +7,6 @@
     <string name="contact">Contact Information</string>
     <string name="skills">Patient Vitals</string>
     <string name="ratings">Star Ratings</string>
-    <string name="samplereview">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium bibendum sapien, ut euismod massa. Duis convallis sem sed turpis elementum auctor.</string>
     <string name="wallet_id">0x47b43D761e5742498bD510043E8f17eF46271bED</string>
     <string name="health_number">Health ID:</string>
     <string name="hospital_visits">Hospital Visits</string>
