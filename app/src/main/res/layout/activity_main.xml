@@ -8,6 +8,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/blue"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
@@ -77,6 +87,7 @@
         android:layout_below="@+id/topbar">
 
         <LinearLayout
+            android:id="@+id/layout_parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -111,12 +122,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
+                        android:id="@+id/tv_patient_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/proximanovaregular"
-                        android:text="Ranit Raj Ganguly"
                         android:textAlignment="center"
                         android:textColor="#424242"
                         android:textSize="21sp"
@@ -139,7 +151,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="1298 3465 9108 2005"
+                            android:text="@string/patient_id"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -175,9 +187,9 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tv_insurance_claim_percentage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="47%"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -211,9 +223,9 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tv_hospital_visit_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="4"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -302,7 +314,6 @@
                 android:id="@+id/layout_patient_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:orientation="vertical">
 
                 <!--About Me Card-->
@@ -345,10 +356,10 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_patient_comments"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="@string/my_desc" />
+                            android:layout_marginTop="10dp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -408,10 +419,10 @@
                                 android:src="@drawable/ic_height" />
 
                             <TextView
+                                android:id="@+id/tv_patient_height"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="175 cms"
                                 android:textSize="15sp"/>
                         </LinearLayout>
 
@@ -430,10 +441,10 @@
                                 android:src="@drawable/ic_weight" />
 
                             <TextView
+                                android:id="@+id/tv_patient_weight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="65 kg"
                                 android:textSize="15sp" />
                         </LinearLayout>
 
@@ -452,10 +463,10 @@
                                 android:src="@drawable/ic_blood_pressure" />
 
                             <TextView
+                                android:id="@+id/tv_patient_blood_pressure"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="120/ 80 mmHg"
                                 android:textSize="15sp" />
                         </LinearLayout>
 
@@ -517,10 +528,10 @@
                                 android:src="@drawable/ic_call_24dp" />
 
                             <TextView
+                                android:id="@+id/tv_patient_mobile_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="+1 403-397-7360"
                                 android:textSize="15sp"
                                 android:textColor="@color/goodgrey"
                                 android:fontFamily="@font/proximanovaregular" />
@@ -541,11 +552,11 @@
                                 android:src="@drawable/ic_email_24dp" />
 
                             <TextView
+                                android:id="@+id/tv_patient_email"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:textColor="@color/goodgrey"
-                                android:text="ranit@ualberta.ca"
                                 android:textSize="15sp"
                                 android:fontFamily="@font/proximanovaregular" />
                         </LinearLayout>
@@ -565,10 +576,10 @@
                                 android:src="@drawable/ic_location_24dp" />
 
                             <TextView
+                                android:id="@+id/tv_patient_location"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="Edmonton, AB, Canada"
                                 android:textSize="15sp"
                                 android:textColor="@color/goodgrey"
                                 android:fontFamily="@font/proximanovaregular" />

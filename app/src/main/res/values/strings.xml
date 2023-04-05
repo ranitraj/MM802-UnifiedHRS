@@ -11,4 +11,5 @@
     <string name="health_number">Health ID:</string>
     <string name="hospital_visits">Hospital Visits</string>
     <string name="msg_token_fmt">Firebase Message Token: </string>
+    <string name="patient_id">1298-3465-9108-2005</string>
 </resources>

@@ -11,16 +11,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.unifiedhrs.databinding.ActivityMainBinding
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
     private val tag: String? = MainActivity::class.simpleName
-    private lateinit var binding: ActivityMainBinding
+
+    private val mDatabaseInstance = Firebase.firestore
+    private lateinit var mBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view: View = binding.root
+        mBinding = ActivityMainBinding.inflate(layoutInflater)
+        val view: View = mBinding.root
 
         setContentView(view)
         askNotificationPermission()
@@ -31,55 +36,41 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFirebase() {
+        // Cloud Messaging Notification Service Initialization
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) { Log.w(tag, "Fetching FCM registration token failed", task.exception)
+            if (!task.isSuccessful) {
+                Log.e(tag, "RRG Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
 
             // Get new FCM registration token
             val token = task.result
-
-            // Log and toast
-            Log.e(tag, "RRG Token = $token")
-            Toast.makeText(baseContext, "Token obtained", Toast.LENGTH_SHORT).show()
+            Log.e(tag, "RRG Token Obtained = $token")
         })
+
+        // Fire Initial API
+        fetchPatientInformationFromFirebase()
     }
 
     private fun initUI() {
-        binding.layoutPatientInfo.visibility = View.VISIBLE
-        binding.layoutMedicalHistory.visibility = View.GONE
-        binding.layoutAccess.visibility = View.GONE
+        mBinding.progressCircular.visibility = View.VISIBLE
+        mBinding.layoutParent.visibility = View.GONE
     }
 
     private fun initClickListeners() {
-        binding.tvPatientInfo.setOnClickListener {
-            showPatientHistoryUI()
+        mBinding.tvPatientInfo.setOnClickListener {
+            initUI()
+            fetchPatientInformationFromFirebase()
         }
 
-        binding.tvMedicalHistory.setOnClickListener {
+        mBinding.tvMedicalHistory.setOnClickListener {
+            initUI()
             showMedicalHistoryUI()
         }
 
-        binding.tvAccess.setOnClickListener {
+        mBinding.tvAccess.setOnClickListener {
+            initUI()
             showAccessUI()
-        }
-    }
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            Toast.makeText(
-                this,
-                "Notification Permission Granted!",
-                Toast.LENGTH_LONG
-            ).show()
-        } else {
-            Toast.makeText(
-                this,
-                "Unified HRS will NOT show Notifications!",
-                Toast.LENGTH_LONG
-            ).show()
         }
     }
 
@@ -97,32 +88,95 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showPatientHistoryUI() {
-        binding.layoutPatientInfo.visibility = View.VISIBLE
-        binding.layoutMedicalHistory.visibility = View.GONE
-        binding.layoutAccess.visibility = View.GONE
+        mBinding.layoutParent.visibility = View.VISIBLE
 
-        binding.tvPatientInfo.setTextColor(resources.getColor(R.color.lightgrey))
-        binding.tvMedicalHistory.setTextColor(resources.getColor(R.color.unselected))
-        binding.tvAccess.setTextColor(resources.getColor(R.color.unselected))
+        mBinding.layoutPatientInfo.visibility = View.VISIBLE
+        mBinding.layoutMedicalHistory.visibility = View.GONE
+        mBinding.layoutAccess.visibility = View.GONE
+
+        mBinding.tvPatientInfo.setTextColor(resources.getColor(R.color.lightgrey))
+        mBinding.tvMedicalHistory.setTextColor(resources.getColor(R.color.unselected))
+        mBinding.tvAccess.setTextColor(resources.getColor(R.color.unselected))
     }
 
     private fun showMedicalHistoryUI() {
-        binding.layoutMedicalHistory.visibility = View.VISIBLE
-        binding.layoutPatientInfo.visibility = View.GONE
-        binding.layoutAccess.visibility = View.GONE
+        mBinding.layoutParent.visibility = View.VISIBLE
 
-        binding.tvPatientInfo.setTextColor(resources.getColor(R.color.unselected))
-        binding.tvMedicalHistory.setTextColor(resources.getColor(R.color.lightgrey))
-        binding.tvAccess.setTextColor(resources.getColor(R.color.unselected))
+        mBinding.layoutMedicalHistory.visibility = View.VISIBLE
+        mBinding.layoutPatientInfo.visibility = View.GONE
+        mBinding.layoutAccess.visibility = View.GONE
+
+        mBinding.tvPatientInfo.setTextColor(resources.getColor(R.color.unselected))
+        mBinding.tvMedicalHistory.setTextColor(resources.getColor(R.color.lightgrey))
+        mBinding.tvAccess.setTextColor(resources.getColor(R.color.unselected))
     }
 
     private fun showAccessUI() {
-        binding.layoutAccess.visibility = View.VISIBLE
-        binding.layoutMedicalHistory.visibility = View.GONE
-        binding.layoutPatientInfo.visibility = View.GONE
+        mBinding.layoutParent.visibility = View.VISIBLE
 
-        binding.tvMedicalHistory.setTextColor(resources.getColor(R.color.unselected))
-        binding.tvPatientInfo.setTextColor(resources.getColor(R.color.unselected))
-        binding.tvAccess.setTextColor(resources.getColor(R.color.lightgrey))
+        mBinding.layoutAccess.visibility = View.VISIBLE
+        mBinding.layoutMedicalHistory.visibility = View.GONE
+        mBinding.layoutPatientInfo.visibility = View.GONE
+
+        mBinding.tvMedicalHistory.setTextColor(resources.getColor(R.color.unselected))
+        mBinding.tvPatientInfo.setTextColor(resources.getColor(R.color.unselected))
+        mBinding.tvAccess.setTextColor(resources.getColor(R.color.lightgrey))
+    }
+
+    private fun fetchPatientInformationFromFirebase() {
+        Log.d(tag, "RRG fetchPatientInformationFromFirebase() called")
+        mDatabaseInstance.collection(USER_COLLECTION_IDENTIFIER)
+            .document(LOGGED_IN_PATIENT_ID)
+            .get()
+            .addOnSuccessListener { data ->
+                mBinding.progressCircular.visibility = View.GONE
+
+                showPatientHistoryUI()
+                parsePatientInformationData(data)
+            }
+            .addOnFailureListener {
+                mBinding.progressCircular.visibility = View.GONE
+                Log.e(tag, "RRG addOnFailureListener() called for fetchPatientInformationFromFirebase() with exception = ${it.localizedMessage}")
+
+                Toast.makeText(
+                    this,
+                    "Something went wrong!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+    }
+
+    private fun parsePatientInformationData(data: DocumentSnapshot) {
+        mBinding.tvPatientName.text = data.get(IDENTIFIER_USER_NAME).toString()
+        mBinding.tvInsuranceClaimPercentage.text = data.get(IDENTIFIER_INSURANCE_CLAIM_PERCENT).toString()
+        mBinding.tvHospitalVisitCount.text = data.get(IDENTIFIER_HOSPITAL_VISIT_COUNT).toString()
+
+        mBinding.tvPatientComments.text = data.get(IDENTIFIER_PATIENT_COMMENTS).toString()
+        mBinding.tvPatientHeight.text = data.get(IDENTIFIER_PATIENT_HEIGHT).toString()
+        mBinding.tvPatientWeight.text = data.get(IDENTIFIER_PATIENT_WEIGHT).toString()
+        mBinding.tvPatientBloodPressure.text = data.get(IDENTIFIER_PATIENT_BLOOD_PRESSURE).toString()
+
+        mBinding.tvPatientMobileNumber.text = data.get(IDENTIFIER_PATIENT_CONTACT_NUMBER).toString()
+        mBinding.tvPatientEmail.text = data.get(IDENTIFIER_PATIENT_EMAIL).toString()
+        mBinding.tvPatientLocation.text = data.get(IDENTIFIER_PATIENT_LOCATION).toString()
+    }
+
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            Toast.makeText(
+                this,
+                "Notification Permission Granted!",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            Toast.makeText(
+                this,
+                "Unified HRS will NOT show Notifications!",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 }
