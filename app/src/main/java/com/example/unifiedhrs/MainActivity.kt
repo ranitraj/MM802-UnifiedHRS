@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.tvAccess.setOnClickListener {
             initUI()
-            showAccessUI()
+            fetchAccessHistoryFromFirebase()
         }
     }
 
@@ -175,6 +175,34 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    private fun fetchAccessHistoryFromFirebase() {
+        Log.d(tag, "fetchAccessHistoryFromFirebase() called")
+        mDatabaseInstance.collection(USER_COLLECTION_DATA_ACCESS)
+            .document(LOGGED_IN_PATIENT_ID)
+            .collection(USER_COLLECTION_RECORD)
+            .get()
+            .addOnSuccessListener { dataList ->
+                mBinding.progressCircular.visibility = View.GONE
+
+                for (document in dataList) {
+                    Log.d(tag, "RRG ${document.id} => ${document.data}")
+                }
+
+                showAccessUI()
+                parseDataAccessHistoryData(dataList)
+            }
+            .addOnFailureListener {
+                mBinding.progressCircular.visibility = View.GONE
+                Log.e(tag, "RRG addOnFailureListener() called for fetchMedicalHistoryFromFirebase() with exception = ${it.localizedMessage}")
+
+                Toast.makeText(
+                    this,
+                    "Something went wrong!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+    }
+
     private fun parsePatientInformationData(data: DocumentSnapshot) {
         mBinding.tvPatientName.text = data.get(IDENTIFIER_USER_NAME).toString()
         mBinding.tvInsuranceClaimPercentage.text = data.get(IDENTIFIER_INSURANCE_CLAIM_PERCENT).toString()
@@ -190,8 +218,13 @@ class MainActivity : AppCompatActivity() {
         mBinding.tvPatientLocation.text = data.get(IDENTIFIER_PATIENT_LOCATION).toString()
     }
 
-    private fun parseMedicalHistoryData(dataList: QuerySnapshot) {
+    private fun parseMedicalHistoryData(dataList: QuerySnapshot?) {
+        // TODO
+    }
 
+
+    private fun parseDataAccessHistoryData(dataList: QuerySnapshot?) {
+        // TODO
     }
 
 

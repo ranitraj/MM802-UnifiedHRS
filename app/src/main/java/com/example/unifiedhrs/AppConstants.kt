@@ -29,4 +29,10 @@ const val IDENTIFIER_HOSPITAL_LOCATION = "hospital_location"
 const val IDENTIFIER_HOSPITAL_NAME = "hospital_name"
 
 
+// Data Access Collection Related
+const val USER_COLLECTION_DATA_ACCESS = "data_access_history"
 
+const val IDENTIFIER_ACCESS_DATE = "access_date"
+const val IDENTIFIER_ACCESS_HOSPITAL_NAME = "hospital_name"
+const val IDENTIFIER_FLAG_EXPIRED = "flag_expired"
+const val IDENTIFIER_FLAG_USER_PERMISSION = "flag_user_permission"
