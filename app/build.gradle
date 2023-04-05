@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.example.unifiedhrs'
-    compileSdk 33
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.example.unifiedhrs"
         minSdk 24
-        targetSdk 33
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 

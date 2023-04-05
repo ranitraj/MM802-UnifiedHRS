@@ -10,4 +10,5 @@
     <string name="wallet_id">0x47b43D761e5742498bD510043E8f17eF46271bED</string>
     <string name="health_number">Health ID:</string>
     <string name="hospital_visits">Hospital Visits</string>
+    <string name="msg_token_fmt">Firebase Message Token: </string>
 </resources>
