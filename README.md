@@ -1,11 +1,13 @@
-# UnifiedHRS - Mobile Application
-The Unified Health Record System (HRS), consists of two major components:
-1. The Android based Mobile Application that can be used by consumers/ patients in order to view their personal information, past medical records and account access.
-2. Vue.js based Web-Dashboard used by Health/ Medical professionals such as, hospitals, medical-centres to view patient records, data and request access to medical records
-3. Etheruem based Blockchain infrasturucture which facilitates updating and viewing patient details.
+# UnifiedHRS
+Healthcare is one of the largest industries in the world. By 2025, it is anticipated that the global healthcare market will reach $11.9 trillion. Since the COVID-19 pandemic, technology has played a significant role in supporting the healthcare infrastructure worldwide. As a result, the use of telehealth services has grown significantly. 
+Also, {electronic health records (EHRs) have become increasingly popular in recent years, with 98\% of hospitals in the United States using some form of this technology as of 2021. However, the existing healthcare infrastructure has several problems.
+* Data privacy and security: It is common for hackers to target healthcare data due to its sensitive and confidential nature. How can we make it more secure?
+* Interoperability: The availability of healthcare data is often limited because it is stored in silos, making it difficult for different providers to share and access patient information. How can this issue be addressed?
+* Data integrity and accuracy: The accuracy and reliability of healthcare data are often compromised by errors such as duplicate records or incorrect diagnoses. In what ways can we ensure the accuracy and reliability of healthcare data?
 
-The Android based mobile application uses Infura SDK to interact with the Ethereum Blockchain Network via the Goerli Test Network.
-The User-Permission access mechanism is developed using Google Firebase Notification Channel.
+Blockchain has the potential to address these challenges. 
+Its cryptographic protocols and distributed ledger technology provide inherent security features that can help protect healthcare data from unauthorized access and tampering, thus addressing privacy and security concerns. Secondly, blockchain technology can serve as a standardized and secure platform for sharing patient data across providers without compromising privacy and enhancing interoperability. Lastly, due to blockchain's immutable nature, it can be used to establish a single source of truth for healthcare data, thus ensuring its accuracy and reliability. Therefore, we propose to develop a Unified Health Record system for patients using a permission-based Blockchain infrastructure, enabling a patient's healthcare data to be managed securely, transparently, and decentrally while protecting user privacy at the same time.
+
 
 ## Technology Stack
 User Application - Kotlin and Android\
@@ -15,6 +17,17 @@ Notification and Permission Management - Google Firebase\
 Version Control - Git
 
 ![](https://img.icons8.com/color/48/000000/kotlin.png) ![icons8-javascript-48](https://user-images.githubusercontent.com/15179100/233170104-21245dcd-0e03-42c2-ad0f-f4aa4d2abc4f.png)  ![](https://img.icons8.com/color/48/000000/android-studio--v3.png) ![icons8-vue-js-48](https://user-images.githubusercontent.com/15179100/233169832-500efed7-440f-4b75-b7d2-94a4e546b2da.png) ![icons8-firebase-48](https://user-images.githubusercontent.com/15179100/226479783-721c46be-5e66-471c-baf5-1a9f9eb51370.png) ![icons8-solidity-48](https://user-images.githubusercontent.com/15179100/233171359-2a838e28-5ac2-4fd7-bce4-c0e3ec183508.png) ![icons8-ethereum-48](https://user-images.githubusercontent.com/15179100/226479782-b22889ca-398c-4012-948b-69b05bb6fcce.png) ![](https://img.icons8.com/color/48/000000/git.png)
+
+
+## Component Overview
+The Unified Health Record System (HRS), consists of three major components:
+1. The Android based Mobile Application that can be used by consumers/ patients in order to view their personal information, past medical records and account access.
+2. Vue.js based Web-Dashboard used by Health/ Medical professionals such as, hospitals, medical-centres to view patient records, data and request access to medical records
+3. Etheruem based Blockchain infrasturucture which facilitates updating and viewing patient details.
+
+The Android based mobile application uses Infura SDK to interact with the Ethereum Blockchain Network via the Goerli Test Network.
+The User-Permission access mechanism is developed using Google Firebase Notification Channel.
+
 
 ## Running the Code
 Based on the Technology-Stack and functionalities, the repository is divided into three branches. Each branch needs to be compiled and executed separately.
