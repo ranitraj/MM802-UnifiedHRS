@@ -8,7 +8,13 @@ The Android based mobile application uses Infura SDK to interact with the Ethere
 The User-Permission access mechanism is developed using Google Firebase Notification Channel.
 
 ## Technology Stack
-![](https://img.icons8.com/color/48/000000/kotlin.png) ![icons8-javascript-48](https://user-images.githubusercontent.com/15179100/233170104-21245dcd-0e03-42c2-ad0f-f4aa4d2abc4f.png)  ![](https://img.icons8.com/color/48/000000/android-studio--v3.png) ![icons8-vue-js-48](https://user-images.githubusercontent.com/15179100/233169832-500efed7-440f-4b75-b7d2-94a4e546b2da.png) ![icons8-firebase-48](https://user-images.githubusercontent.com/15179100/226479783-721c46be-5e66-471c-baf5-1a9f9eb51370.png) ![icons8-ethereum-48](https://user-images.githubusercontent.com/15179100/226479782-b22889ca-398c-4012-948b-69b05bb6fcce.png) ![](https://img.icons8.com/color/48/000000/git.png)
+User Application - Kotlin and Android\
+Web Dashboard - Javascript and Vue\
+Blockchain - Solidity and Ethereum\
+Notification and Permission Management - Google Firebase\
+Version Control - Git
+
+![](https://img.icons8.com/color/48/000000/kotlin.png) ![icons8-javascript-48](https://user-images.githubusercontent.com/15179100/233170104-21245dcd-0e03-42c2-ad0f-f4aa4d2abc4f.png)  ![](https://img.icons8.com/color/48/000000/android-studio--v3.png) ![icons8-vue-js-48](https://user-images.githubusercontent.com/15179100/233169832-500efed7-440f-4b75-b7d2-94a4e546b2da.png) ![icons8-firebase-48](https://user-images.githubusercontent.com/15179100/226479783-721c46be-5e66-471c-baf5-1a9f9eb51370.png) ![icons8-solidity-48](https://user-images.githubusercontent.com/15179100/233171359-2a838e28-5ac2-4fd7-bce4-c0e3ec183508.png) ![icons8-ethereum-48](https://user-images.githubusercontent.com/15179100/226479782-b22889ca-398c-4012-948b-69b05bb6fcce.png) ![](https://img.icons8.com/color/48/000000/git.png)
 
 ## Screenshots
 <img src="https://user-images.githubusercontent.com/15179100/233164381-10953dfb-4be4-4014-986d-8d50c61d9f49.jpg" width="250" height="450">
