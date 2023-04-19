@@ -46,3 +46,6 @@ Based on the Technology-Stack and functionalities, the repository is divided int
 <img src="https://user-images.githubusercontent.com/15179100/233164381-10953dfb-4be4-4014-986d-8d50c61d9f49.jpg" width="250" height="450">
 <img src="https://user-images.githubusercontent.com/15179100/233164366-55450b55-379f-4bbb-a064-3f7d8b02414b.jpg" width="250" height="450">
 <img src="https://user-images.githubusercontent.com/15179100/233164368-de451d7d-83c3-42ef-992f-fcd0c936c9e4.jpg" width="250" height="450">
+
+### Vue Access/Data Management Dashboard
+<img src="https://user-images.githubusercontent.com/15179100/233178495-d1e6c633-0592-4727-bf41-9eee3cb5f7aa.png" width="800" height="450">
