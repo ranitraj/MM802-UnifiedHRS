@@ -26,7 +26,10 @@ The Unified Health Record System (HRS), consists of three major components:
 3. Etheruem based Blockchain infrasturucture which facilitates updating and viewing patient details.
 
 The Android based mobile application uses Infura SDK to interact with the Ethereum Blockchain Network via the Goerli Test Network.
-The User-Permission access mechanism is developed using Google Firebase Notification Channel.
+The User-Permission access mechanism is developed using Google Firebase Notification Channel.\
+The overall architecture-diagram of the Unified EHS application is shown below:
+
+![arch_diagram](https://user-images.githubusercontent.com/15179100/233177579-9fe6ecd1-19f8-4070-b8ac-caea359cdb94.png)
 
 
 ## Running the Code
