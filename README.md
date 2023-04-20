@@ -39,6 +39,26 @@ Based on the Technology-Stack and functionalities, the repository is divided int
 2. ui - Web Dashboard based on Vue
 3. blockchain - Backend based on Ethereum
 
+### Part-1 (Building the Android Mobile Application)
+1. Download the code from the current repository either as a zip file or use Git or checkout with SVN using the below web URL. Open the repository via Android Studio.
+```
+https://github.com/ranitraj/MM802-UnifiedHRS.git
+```
+2. Checkout to the branch 'android' using the below command via the terminal.
+```
+git checkout -b origin android
+```
+3. Clean and Rebuild the project using Android Studio. This can be performed through the UI or via the terminal using the following commands.
+```
+./gradlew clean
+./gradlew build
+```
+4. Once the project is compiled successfully, the same can be installed on a real-device or an emulator. To flash an APK into a device, the below command can be used.
+NOTE: ADB must be installed prior to executing this command.
+```
+adb install path-to-apk-file.apk
+```
+
 
 ## Screenshots
 
