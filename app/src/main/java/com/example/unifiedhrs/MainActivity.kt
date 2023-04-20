@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         initFirebase()
     }
 
+    /**
+     * Initializes the Firebase Cloud Messaging Notification Service and Firestore Database
+     */
     private fun initFirebase() {
         // Cloud Messaging Notification Service Initialization
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -53,11 +56,17 @@ class MainActivity : AppCompatActivity() {
         fetchPatientInformationFromFirebase()
     }
 
+    /**
+     * Initializes the required UI components on Activity launch
+     */
     private fun initUI() {
         mBinding.progressCircular.visibility = View.VISIBLE
         mBinding.layoutParent.visibility = View.GONE
     }
 
+    /**
+     * Initializes the required click listeners
+     */
     private fun initClickListeners() {
         mBinding.tvPatientInfo.setOnClickListener {
             initUI()
@@ -75,6 +84,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Asks user to allow notification permission
+     */
     private fun askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
@@ -88,6 +100,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * UI for Patient-History Tab
+     */
     private fun showPatientHistoryUI() {
         mBinding.layoutParent.visibility = View.VISIBLE
 
@@ -100,6 +115,9 @@ class MainActivity : AppCompatActivity() {
         mBinding.tvAccess.setTextColor(resources.getColor(R.color.unselected))
     }
 
+    /**
+     * UI for Medical-History Tab
+     */
     private fun showMedicalHistoryUI() {
         mBinding.layoutParent.visibility = View.VISIBLE
 
@@ -112,6 +130,9 @@ class MainActivity : AppCompatActivity() {
         mBinding.tvAccess.setTextColor(resources.getColor(R.color.unselected))
     }
 
+    /**
+     * UI for Access-History Tab
+     */
     private fun showAccessUI() {
         mBinding.layoutParent.visibility = View.VISIBLE
 
@@ -124,6 +145,9 @@ class MainActivity : AppCompatActivity() {
         mBinding.tvAccess.setTextColor(resources.getColor(R.color.lightgrey))
     }
 
+    /**
+     * Retrieves the Patient information Data from Firestore DB (Saved from Ethereum) for faster access
+     */
     private fun fetchPatientInformationFromFirebase() {
         Log.d(tag, "RRG fetchPatientInformationFromFirebase() called")
         mDatabaseInstance.collection(USER_COLLECTION_IDENTIFIER)
@@ -147,6 +171,9 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * Retrieves the Medical History Data from Firestore DB (Saved from Ethereum) for faster access
+     */
     private fun fetchMedicalHistoryFromFirebase() {
         Log.d(tag, "RRG fetchMedicalHistoryFromFirebase() called")
         mDatabaseInstance.collection(USER_COLLECTION_MEDICAL_HISTORY)
@@ -175,6 +202,9 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * Retrieves the Access History Data from Firestore DB (Saved from Ethereum) for faster access
+     */
     private fun fetchAccessHistoryFromFirebase() {
         Log.d(tag, "fetchAccessHistoryFromFirebase() called")
         mDatabaseInstance.collection(USER_COLLECTION_DATA_ACCESS)
@@ -203,6 +233,9 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * Parse and Map the Patient History Data from API
+     */
     private fun parsePatientInformationData(data: DocumentSnapshot) {
         mBinding.tvPatientName.text = data.get(IDENTIFIER_USER_NAME).toString()
         mBinding.tvInsuranceClaimPercentage.text = data.get(IDENTIFIER_INSURANCE_CLAIM_PERCENT).toString()
@@ -218,16 +251,32 @@ class MainActivity : AppCompatActivity() {
         mBinding.tvPatientLocation.text = data.get(IDENTIFIER_PATIENT_LOCATION).toString()
     }
 
+    /**
+     * Parse and Map the Medical History Data from API
+     */
     private fun parseMedicalHistoryData(dataList: QuerySnapshot?) {
-        // TODO
+        dataList?.forEach { curData ->
+            mBinding.tvPatientComments.text = curData.get(IDENTIFIER_DOCTOR_COMMENTS).toString()
+            mBinding.tvPatientHeight.text = curData.get(IDENTIFIER_DOCTOR_ASSIGNED).toString()
+            mBinding.tvPatientWeight.text = curData.get(IDENTIFIER_HOSPITAL_NAME).toString()
+            mBinding.tvPatientBloodPressure.text = curData.get(IDENTIFIER_HOSPITAL_LOCATION).toString()
+        }
     }
 
 
+    /**
+     * Parse and Map the Access History Data from API
+     */
     private fun parseDataAccessHistoryData(dataList: QuerySnapshot?) {
-        // TODO
+        dataList?.forEach { curData ->
+            mBinding.tvPatientComments.text = curData.get(IDENTIFIER_AMOUNT_BILLED).toString()
+            mBinding.tvPatientHeight.text = curData.get(IDENTIFIER_DATE_VISITED).toString()
+            mBinding.tvPatientWeight.text = curData.get(IDENTIFIER_HOSPITAL_IMAGE_URL).toString()
+        }
     }
 
 
+    // Permission request Handler which shows a toast based on user action
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
