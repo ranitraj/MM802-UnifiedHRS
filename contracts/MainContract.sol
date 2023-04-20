@@ -2,7 +2,7 @@
 pragma solidity >=0.4.22 <0.9.0;
 pragma experimental ABIEncoderV2;
 
-contract SimpleStorage {
+contract MainContract {
   uint256 value;
 
   function read() public view returns (uint256) {
