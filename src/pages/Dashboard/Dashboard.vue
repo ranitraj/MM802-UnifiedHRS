@@ -157,7 +157,6 @@
 import Widget from '@/components/Widget/Widget';
 import BigStat from './components/BigStat/BigStat';
 import mock from './mock';
-import messaging from '../../main';
 
 import { Chart } from 'highcharts-vue';
 

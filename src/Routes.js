@@ -19,6 +19,7 @@ import AnalyticsPage from '@/pages/Dashboard/Dashboard';
 // Charts
 import ChartsPage from '@/pages/Charts/Charts';
 
+import Form from '@/pages/Form/Form';
 // Ui
 import IconsPage from '@/pages/Icons/Icons';
 import NotificationsPage from '@/pages/Notifications/Notifications';
@@ -47,6 +48,11 @@ export default new Router({
           path: 'dashboard',
           name: 'AnalyticsPage',
           component: AnalyticsPage,
+        },
+        {
+          path: 'form',
+          name: 'Form',
+          component: Form,
         },
         {
           path: 'typography',
