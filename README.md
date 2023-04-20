@@ -39,7 +39,7 @@ Based on the Technology-Stack and functionalities, the repository is divided int
 2. ui - Web Dashboard based on Vue
 3. blockchain - Backend based on Ethereum
 
-### Part-1 (Building the Android Mobile Application)
+### Part-1 (Running the Android Mobile Application)
 1. Download the code from the current repository either as a zip file or use Git or checkout with SVN using the below web URL. Open the repository via Android Studio.
 ```
 https://github.com/ranitraj/MM802-UnifiedHRS.git
@@ -59,7 +59,7 @@ NOTE: ADB must be installed prior to executing this command.
 adb install path-to-apk-file.apk
 ```
 
-### Part-2 (Building the Vue Web-Dashboard)
+### Part-2 (Running the Vue Web-Dashboard)
 1. Run `yarn install`\
 This will install both run-time project dependencies and developer tools listed
 in [package.json](../package.json) file. We are moving all dependencies to npm, so there will be no bower dependencies soon.
@@ -73,6 +73,24 @@ hacking. The page must be served from a web server, e.g. apache, nginx, WebStorm
 
 3. Run `yarn serve`\
 This command will watch for changes in `/src` and recompile vue templates & scss styles on the fly.
+
+### Part-3 (Running the Ethereum Blockchain)
+1. Start the local test node
+```sh
+npx hardhat node
+```
+
+2. Deploy the contract
+```sh
+npx hardhat run scripts/deploy.js --network localhost
+```
+
+3. Update __src/App.js__ with the values of your contract addresses (`patientAddress` and `tokenAddress`)
+
+4. Run the app
+```sh
+npm start
+```
 
 ## Screenshots
 
