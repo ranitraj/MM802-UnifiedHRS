@@ -101,3 +101,4 @@ npm start
 
 ### Vue Access/Data Management Dashboard
 <img src="https://user-images.githubusercontent.com/15179100/233178495-d1e6c633-0592-4727-bf41-9eee3cb5f7aa.png" width="800" height="450">
+<img src="https://user-images.githubusercontent.com/52835524/233236006-8f00924f-f8d0-4624-a587-1bf6585e953e.png" width="400" height="400">
