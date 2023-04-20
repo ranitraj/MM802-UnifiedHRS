@@ -20,17 +20,27 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-
+/**
+ * Custom Class extending the FirebaseMessagingService to integrate the Firebase Cloud Messaging Service within the application
+ */
 class FirebaseNotificationService: FirebaseMessagingService() {
     private val tag: String? = FirebaseNotificationService::class.simpleName
 
     private val mDatabaseInstance = Firebase.firestore
 
+    /**
+     * @override method called when the firebase token changes.
+     * This callback can be used to update the token in the Backend infrastructure
+     */
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d(tag, "RRG onNewToken() called with: token = $token")
     }
 
+    /**
+     * @override method called when a notification is received from Firebase.
+     * Used to show the in-app notification layout and update the user-permission access flag in Firebase
+     */
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         Log.e(tag, "RRG onMessageReceived() called with: message = $message")
@@ -38,6 +48,9 @@ class FirebaseNotificationService: FirebaseMessagingService() {
         uploadNewAccessDocumentToFirebase(true)
     }
 
+    /**
+     * Builds a notification using a builder and shows the notification via PendingIntent and NotificationService
+     */
     private fun showNotification() {
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -45,15 +58,13 @@ class FirebaseNotificationService: FirebaseMessagingService() {
         // Assign channel ID
         val channelId = "notification_channel"
 
-        // Pass the intent to PendingIntent to start the
-        // next Activity
+        // Pass the intent to PendingIntent to start the next Activity
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent,
             PendingIntent.FLAG_IMMUTABLE
         )
 
-        // Create a Builder object using NotificationCompat
-        // class. This will allow control over all the flags
+        // Create a Builder object using NotificationCompat class. This will allow control over all the flags
         val builder = NotificationCompat
             .Builder(applicationContext, channelId)
             .setAutoCancel(true)
@@ -63,16 +74,14 @@ class FirebaseNotificationService: FirebaseMessagingService() {
             .setContentText("Hospital is requesting limited time access to your Personal History and Past Medical Records\"")
             .setSmallIcon(R.drawable.stat_notify_more)
 
-        // Create an object of NotificationManager class to
-        // notify the
-        // user of events that happen in the background.
-        // Register the channel with the system
+        // Create an object of NotificationManager class to notify the user of events that happen in the background and Register the channel with the system
         val notificationManager: NotificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         // Check if the Android Version is greater than Oreo
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
-                channelId, "web_app",
+                channelId,
+                "web_app",
                 NotificationManager.IMPORTANCE_HIGH
             )
             notificationManager.createNotificationChannel(notificationChannel)
@@ -81,6 +90,9 @@ class FirebaseNotificationService: FirebaseMessagingService() {
         notificationManager.notify(0, builder.build())
     }
 
+    /**
+     * Prepares and Displays an In-App Popup once application receives a notification from Forebase
+     */
     private fun showInAppPermissionDialog() {
         Log.d(tag, "showInAppPermissionDialog() called")
 
@@ -126,6 +138,11 @@ class FirebaseNotificationService: FirebaseMessagingService() {
 
     }
 
+    /**
+     * Adds a new entry to firebase Room DB and changes the user-permission boolean flag depending on
+     * user-permission granted to access data
+     * @param isAccessGiven: boolean flag representing if user has given access
+     */
     private fun uploadNewAccessDocumentToFirebase(isAccessGiven: Boolean) {
         Log.d(tag, "uploadNewAccessDocumentToFirebase() called with: isAccessGiven = $isAccessGiven")
 
